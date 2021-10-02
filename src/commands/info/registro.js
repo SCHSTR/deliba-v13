@@ -28,17 +28,21 @@ module.exports = class extends Command {
 
         if(!testedEmail) return interaction.reply({content: 'Parece que você digitou um email inválido 😢', ephemeral: true})
 
-        axios.post(`${process.env.API_URL}/users/discord`, {
+        axios.post(`${process.env.API_URL}/auth/register/discord`, {
             email: email,
             discordId: discordId
         }).then(res => {
             console.log(res.data)
-        }).catch(err => console.log(err))
+            if(res.data.data.code === 'P2002') return interaction.reply({
+                content: 'Este e-mail parece já estar sendo usado 😳',
+                ephemeral: true
+            })
 
-        interaction.reply({
-            content: 'world! ;D',
-            ephemeral: true //only for the user
-        })
+            interaction.reply({
+                content: 'Seu registro foi realizado com sucesso!',
+                ephemeral: true
+            })
+        }).catch(err => console.log(err))
     }
 }
 
