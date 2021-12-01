@@ -49,14 +49,12 @@ module.exports = class extends Command {
 
             collector.on('collect', (i) => {
 
-                console.log(i.content)
-
-                // i.update(
-                //     {
-                //         content: `Digite o seu email aqui`,
-                //         components: []
-                //     }
-                // )
+                i.update(
+                    {
+                        content: `Digite o seu email aqui`,
+                        components: []
+                    }
+                )
             })
 
             collector.on('end', (collected, reason) => {
